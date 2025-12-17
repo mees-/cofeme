@@ -28,8 +28,8 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Ensure .next exists and is writable by the app user for runtime builds
-RUN mkdir -p .next && chown nextjs:nodejs .next
+# Ensure app files (including .next and next-env.d.ts) are writable by the app user for runtime builds
+RUN mkdir -p .next && chown -R nextjs:nodejs .
 
 USER nextjs
 
